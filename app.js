@@ -8,6 +8,11 @@ angular.module('flapperNews', ['ui.router'])
       url: '/home',
       templateUrl: '/home.html',
       controller: 'MainCtrl'
+    })
+    .state('posts', {
+      url: '/posts/{id}',
+      templateUrl: '/posts.html',
+      controller: 'PostsCtrl'
     });
 
     $urlRouterProvider.otherwise('home');
@@ -21,7 +26,9 @@ angular.module('flapperNews', ['ui.router'])
     return service;
   }])
 
-.controller('MainCtrl', ['$scope', 'posts',
+.controller('MainCtrl', [
+  '$scope',
+  'posts',
   function($scope, posts) {
     $scope.test = 'Hello World!';
 
@@ -32,7 +39,11 @@ angular.module('flapperNews', ['ui.router'])
       $scope.posts.push({
         title: $scope.title,
         link: $scope.link,
-        upvotes: 0
+        upvotes: 0,
+        comments: [
+          { author: 'Joe', body: 'Cool post!', upvote: 0 },
+          { author: 'Bob', body: 'Great idea!', upvote: 0 }
+        ]
       });
 
       $scope.title = '';
@@ -43,4 +54,21 @@ angular.module('flapperNews', ['ui.router'])
       post.upvotes += 1;
     };
 
+  }])
+.controller('PostsCtrl', [
+  '$scope',
+  '$stateParams',
+  'posts',
+  function($scope, $stateParams, posts) {
+    $scope.post = posts.posts[$stateParams.id];
+
+    $scope.addComment = function() {
+      if($scope.body === '') { return; }
+      $scope.post.comments.push({
+        body: $scope.body,
+        author: 'user',
+        upvotes: 0
+      });
+      $scope.body = '';
+    };
   }]);
