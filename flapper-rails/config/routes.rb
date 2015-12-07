@@ -13,4 +13,5 @@ Rails.application.routes.draw do
       put '/upvote' => 'posts#upvote'
     end
   end
+  
 end

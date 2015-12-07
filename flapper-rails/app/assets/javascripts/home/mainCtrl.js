@@ -1,4 +1,4 @@
-angular.module('flapperNews', ['ui.router', 'templates'])
+angular.module('flapperNews')
 .controller('MainCtrl', [
   '$scope',
   'posts',
@@ -9,22 +9,16 @@ angular.module('flapperNews', ['ui.router', 'templates'])
 
     $scope.addPost = function() {
       if(!$scope.title || $scope.title === ''){ return; }
-      $scope.posts.push({
+      posts.create({
         title: $scope.title,
-        link: $scope.link,
-        upvotes: 0,
-        comments: [
-          { author: 'Joe', body: 'Cool post!', upvote: 0 },
-          { author: 'Bob', body: 'Great idea!', upvote: 0 }
-        ]
+        link: $scope.link
       });
-
       $scope.title = '';
       $scope.link = '';
     };
 
-    $scope.incrementByUpvotes = function(post) {
-      post.upvotes += 1;
+    $scope.incrementUpvotes = function(post) {
+      posts.upvote(post);
     };
 
   }]);
