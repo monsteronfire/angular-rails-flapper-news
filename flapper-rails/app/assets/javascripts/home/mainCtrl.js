@@ -3,8 +3,6 @@ angular.module('flapperNews')
   '$scope',
   'posts',
   function($scope, posts) {
-    $scope.test = 'Hello World!';
-
     $scope.posts = posts.posts;
 
     $scope.addPost = function() {

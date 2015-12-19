@@ -3,6 +3,7 @@ angular.module('flapperNews', ['ui.router', 'templates'])
   '$stateProvider',
   '$urlRouterProvider',
   function($stateProvider, $urlRouterProvider) {
+
     $stateProvider
     .state('home', {
       url: '/home',
@@ -25,9 +26,6 @@ angular.module('flapperNews', ['ui.router', 'templates'])
       }
     });
 
-    // $urlRouterProvider.otherwise('home');
-    $urlRouterProvider.otherwise(function($injector, $location){
-      var $state = $injector.get("$state");
-      $state.go('home');
-    });
+    $urlRouterProvider.otherwise('home');
+    
   }]);
